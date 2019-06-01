@@ -1,0 +1,17 @@
+git init 初始化本地仓库
+git status 查看没有追踪的文件
+git add [文件名] 添加追踪文件.代表整个文件夹
+.gitignore文件 Git的忽略清单可以忽略不需要提交的文件
+git commit -m ' 第一次提交' 用来提交到本地仓库
+git log 查看提交日志
+git --all 修改文件后从新追踪
+git reset --hard 6位哈希值 回滚到指定提交
+git remote add origin https://github.com/mitu1995/car.git 添加github地址
+git remote -v 查看添加的网络地址
+git push -u origin master 提交到github主分支
+git pull origin master 从远端拉倒本地
+git branch 查看分支
+git branch [分支名称] 新建分支
+git checkout [分支名称] 切换分支
+git branch gh-pages 创建可以预览的的静态页面
+mitu1995.github.io/car 访问静态页面的地址 ID github.io/项目名称
