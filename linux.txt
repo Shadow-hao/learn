@@ -1,0 +1,54 @@
+ls 展示文件列表
+su - [用户名] 切换账户
+$普通用户提示符
+#超级管理员
+都是关机命令
+shutdown -h now 
+halt
+poweroff
+init 0
+都是关机命令
+重启命令
+shutdown -r now
+reboot
+init 6
+重启命令
+ifconfig 查看网络信息
+uname -a 查看Linux系统信息
+uname -r 查看Linux系统信息
+./当前目录
+../上级目录
+ls -a显示全部目录或文件
+ls -l显示详细文件和目录信息
+ls -d 显示目录
+ls -R 递归显示文件和目录
+ls -m 横向显示文件和目录以','分割
+pwd 显示当前目录
+mkdir 创建文件夹
+mkdir -p 递归创建多级目录
+touch 创建文件
+cp 复制文件
+cp -R 递归复制文件 多重文件夹
+mv 移动文件或者改名
+rm 删除目录文件
+rm -i 删除时询问
+rm -f 强制删除
+rm -rf 递归强制删除
+rmdir 删除空目录
+cat 显示文件内容
+cat-n 显示文件内容带行号
+tac 倒序查看
+nl 显示文件内容带行号 同cat -n
+more 分页显示文件内容 q键退出上一页 b ,Ctrl+b下一页空格键 Ctrl+f 当前行号:f;
+less 向前分页上一页 pageup 下一页pagedown退出q
+ head 查看文件前10行head -n 15自定义查看行数
+tail 查看文件尾部10行 tail -n 5 自定义显示5行
+file 查看文件类型
+wc 文件统计 第一个代表行数 第二个代表词数3字符数
+ctrl+a 光标移动到命令开头
+Ctrl+e光标移动到结尾
+Ctrl+c停止命令执行,终止进程
+ctrl+d 结束命令退出
+ctrl+m 回车键|
+tab自动补全目录名文件名
+ 

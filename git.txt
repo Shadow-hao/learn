@@ -14,4 +14,4 @@ git branch 查看分支
 git branch [分支名称] 新建分支
 git checkout [分支名称] 切换分支
 git branch gh-pages 创建可以预览的的静态页面
-mitu1995.github.io/car 访问静态页面的地址 ID github.io/项目名称
+mitu1995.ithub.io/car 访问静态页面的地址 ID github.io/项目名称
