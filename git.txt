@@ -4,7 +4,7 @@ git add [文件名] 添加追踪文件.代表整个文件夹
 .gitignore文件 Git的忽略清单可以忽略不需要提交的文件
 git commit -m ' 第一次提交' 用来提交到本地仓库
 git log 查看提交日志
-git --all 修改文件后从新追踪
+git  add --all 修改文件后从新追踪
 git reset --hard 6位哈希值 回滚到指定提交
 git remote add origin https://github.com/mitu1995/car.git 添加github地址
 git remote -v 查看添加的网络地址
