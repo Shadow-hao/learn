@@ -51,4 +51,27 @@ Ctrl+c停止命令执行,终止进程
 ctrl+d 结束命令退出
 ctrl+m 回车键|
 tab自动补全目录名文件名
- 
+ln [源文件名] [新文件名]创建硬链接 相当于快捷方式 源文件删除后创建的硬链接还可以访问
+ln -s [源文件名] [新文件名]创建软链接 相当于快捷方式 源文件删除后创建的软连接也无法访问
+ find [查找目录 . 是当前目录] -name 1.PHP  按文件名查找
+ls -lh 显示文件信息大小kb显示
+useradd [用户名] 创建普通用户 
+useradd -r [用户名] 创建系统用户 登入界面不显示
+nl /etc/group 用户组信息
+useradd -g [分组名]  [用户名]创建用户时选择分组
+userdel [用户名] 删除用户
+userdel -r [ 用户名] 删除用户把用户主目录一起删除
+usermod -d [目录名][用户名]修改用户目录
+usermod -u [userid] [用户名]修改UserID
+usermod -l [新用户名][原来用户名]更改用户名
+passwd [用户名] 回车输入密码 设置密码
+passwd -l [用户名] 禁用账号
+passwd -u [用户名] 解禁账号
+passwd -d [用户名] 取消账号密码
+passwd -f [用户名]强制下次登录时修改密码
+groupadd  [用户组名] 添加用户组
+groupdel [用户组名] 删除用户组
+groupmod -n [新用户组名][用户组名]更改用户组名
+groupmod -g [新的用户组ID][用户组名] 更改用户组UID
+who 查看当前用户
+ID 查看当前用户详细信息
