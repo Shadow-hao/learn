@@ -14,4 +14,16 @@ git branch 查看分支
 git branch [分支名称] 新建分支
 git checkout [分支名称] 切换分支
 git branch gh-pages 创建可以预览的的静态页面
-mitu1995.ithub.io/car 访问静态页面的地址 ID github.io/项目名称
+mitu1995.github.io/car 访问静态页面的地址 ID github.io/项目名称
+//liunx安装
+mount /dev/cdrom /media/CentOS
+yum --disablerepo=\* --enablerepo=c6-media install gcc gcc-c++ perl perl-devel curl-devel expat-devel gettext-devel openssl-devel perl-devel zlib-devel tcl build-essential tk gettext
+
+tar zxvf git-2.9.0.tar.gz
+cd git-2.9.0
+
+make configure
+./configure --prefix=/usr/local/git
+make
+make install
+make && make install

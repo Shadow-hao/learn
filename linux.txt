@@ -75,3 +75,109 @@ groupmod -n [新用户组名][用户组名]更改用户组名
 groupmod -g [新的用户组ID][用户组名] 更改用户组UID
 who 查看当前用户
 ID 查看当前用户详细信息
+d开头是目录文件
+l 开头是快捷方式
+s 开头是套接字 var/run
+b开头是 块设备,二进制dev/sda
+c开头是字符设备文件
+p命名管道文件
+- 普通文件
+r(读):4,w(写):2,x(执行):1;权限
+chmod [777][文件名]设置权限
+chmod u=rwx,g+rwx,0=rwx 主 组 其他
+vim [文件名]打开文件 : set nu 显示行号:[行号]跳转到行号 :w保存:q是退出,esc退出编辑,o进入编辑x退出保存
+:q退出 :q! 强制退出:wq 保存退出:wq!强制保存退出
+:x 如果有改动就保存退出没有就直接退出
+esc  编辑模式进入命令模式
+i光标所在处插入I 从第一个非空格行插入
+a从光标的下一个字符开始插入
+A 光标所在行的最后一个字符处插入
+o,O 进入编辑模式
+s 删除添加
+r修改替换
+kjhl:上下左右
+space 光标右移动一个字符
+backspace 左移动一个字符
+enter换行
+gg 移动文档开头
+G文档结尾
+^,0某一行开头
+$某一行结尾
+5+enter 向下移动5行
+5G移动到第五行行首
+Ctrl +b上一页
+ctrl+f下一页
+n+光标下移n行
+n-光标上移动n行
+n$光标移动到n行尾
+H光标移动到屏幕顶行
+M光标移动到中间行
+L光标移动到最右行
+w:下一个单词
+b上一个单词
+yy拷贝一行
+nyy拷贝n行
+yw拷贝一个单词
+nyw拷贝n个单词
+yG拷贝到文件尾行
+y$拷贝到一行的结尾
+p当前位置黏贴
+P(大写)当前位置向前黏贴
+dd删除当行
+ndd删除n行
+dw删除一个单词
+ndw 删除n个单词
+dG删除文件尾行
+dgg删除文件行首
+d^删除到行首
+d$删除到行尾
+/[查找的内容]向下找
+?[查找的内容]向上找
+n查找方向的下一处匹配
+N 上一处匹配
+:s/[要替换的内容]/[替换的新内容]
+:%s/[要替换的内容]/[替换的新内容]/g全部替换
+u恢复前一个操作
+ctrl+r重做上一个操作
+.:重复前一个操作
+:set nonu 取消行号
+: n 定位到n行
+gzip [文件]压缩文件
+gunzip[压缩文件]解压缩
+tar -zcvf [压缩后的文件名] [要压缩的文件]压缩
+tar -zxvf [解压缩的文件]解压缩
+tar -ztvf [查看的压缩文件]查看压缩文件信息
+zip [压缩后的文件名][要压缩的文件名]
+zip -r [压缩后的文件名][要压缩的目录]
+unzip [要解压缩的文件]
+service iptables stop关闭 进程
+service iptables start  启动进程
+chkconfig --list iptables查看进程
+0 关机模式
+1单用户模式
+2 无网络多用户
+3有网络多用户
+4不可用
+5带图形界面
+6重启模式
+runlevel查看启动级别
+chkconfig --level 25 iptables off 关闭25级别防火墙
+chkconfig --level 25 iptables on 开启25级别防火墙
+/etc/rc.local 开机自动启动
+ps -aux 详细查看进程
+ps -e 简单查看进程
+top 实时进程
+data > [文件名]写入覆盖输出
+data >> [文件名]追加
+ls | grep ps 只显示ps
+ls --help命令的帮助文档
+history 使用过的历史记录
+kill [进程编号]杀死进程
+kill -9[进程编号]强制杀死进程
+sudo /etc/sudoers可以给普通用户有超级管理员权限
+minute hour day month week command 分钟 小时 日 月 周几 命令
+/ETC/crontab配置定时任务文件
+crontab -l 查看定时任务及进程
+crontab -e创建定时任务
+mount /dev/cdrom [要挂载的目录]挂载光盘
+service apache start 守护进程启动

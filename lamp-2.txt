@@ -1,0 +1,277 @@
+﻿LAMP的安装步骤：
+
+一、apache的安装
+
+1.创建目录（区分大小写）
+mkdir /media/CentOS
+
+2.挂载光盘
+mount /dev/cdrom /media/CentOS
+
+
+3.安装软件依赖：
+yum --disablerepo=\* --enablerepo=c6-media install gcc gcc-c++
+repo：Fedora中yum源(软件仓库)的配置文件
+
+查看软件是否安装
+yum --disablerepo=\* --enablerepo=c6-media list libxml2-devel
+
+4.安装apr
+(Apache Portable Runtime):apache的可移植运行环境
+The recommended releases of the several Apache Portable Runtime libraries are
+
+ tar zxvf apr-1.5.2.tar.gz
+
+ cd apr-1.5.2
+
+ ./configure --prefix=/usr/local/apr
+
+ make && make install
+
+5.安装apr-util
+Apache Portable Runtime Utility library:apache的可移植运行环境实体库 
+
+tar zxvf apr-util-1.5.4.tar.gz
+
+cd apr-util-1.5.4
+
+./configure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr
+
+make && make install
+
+6.安装pcre
+
+PCRE - Perl Compatible Regular Expressions (perl 兼容的正则表达式库)
+tar zxvf pcre-8.39.tar.gz
+
+cd pcre-8.39
+
+./configure --prefix=/usr/local/pcre
+
+make && make install
+
+7.安装Apache
+
+tar zxvf httpd-2.4.25.tar.gz
+
+cd httpd-2.4.25
+
+./configure --prefix=/usr/local/apache --enable-so --with-apr=/usr/local/apr --with-apr-util=/usr/local/apr-util --with-pcre=/usr/local/pcre
+
+--enable-so:代表安装共享模块
+
+make && make install
+
+# Apache启动服务
+
+ /usr/local/apache/bin/apachectl -k start|stop|restart
+
+ -k:就是发送信号使apache启动、重新启动或停止
+
+启动apache要关闭防火墙
+service iptables stop
+
+配置apache的开机启动
+vim /etc/rc.d/rc.local 或者是 vim /etc/rc.local
+/usr/local/apache/bin/apachectl -k start &
+
+配置apache的守护进程
+
+将该脚本加入到 chkconfig 守护进程中进程脚本,
+cp bin/apachectl /etc/init.d/apache
+或者是
+cp /usr/local/apache/bin/apachectl /etc/init.d/apache
+
+添加进程
+chkconfig --add apache
+
+/etc/init.d/apache需要增加两个说明类的注释
+
+chkconfig:35 43 43
+description:Starts,stops and saves Apache Httpd
+
+二、php的安装
+1.安装PHP(Apache模块)
+
+yum --disablerepo=\* --enablerepo=c6-media install gcc gcc-c++ libxml2 libxml2-devel autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel  zlib zlib-devel glibc glibc-devel glib2 glib2-devel
+
+libxml2:是一个C语言的XML程序库
+freetype：字体库
+libjpeg,libpng:使用的 JPEG PNG图像压缩库
+Autoconf：是一个用于包，以适应多种Unix类系统的 shell脚本的工具
+zlib：提供数据压缩用的函式库
+glibc:linux系统中最底层的api，几乎其它任何运行库都会依赖于glibc
+
+# 修改Apache的apxs
+
+apxs:Apache extension tool(Apache的扩展工具)
+
+vi /usr/local/apache/bin/apxs
+
+将第一行改为：#!/usr/bin/perl -w
+保存退出
+
+2.正式安装PHP
+tar zxvf php-5.6.30.tar.gz
+
+cd php-5.6.30
+
+# 64位
+apxs:Apache extension tool
+
+./configure --prefix=/usr/local/php --with-apxs2=/usr/local/apache/bin/apxs --with-zlib --with-pdo-mysql --with-mysql --with-mysqli --enable-mbstring --with-gd --with-png-dir=/usr/lib64 --with-jpeg-dir=/usr/lib64 --with-freetype-dir=/usr/lib64
+
+# 32位
+./configure --prefix=/usr/local/php --with-apxs2=/usr/local/apache/bin/apxs --with-zlib --with-pdo-mysql --enable-mbstring --with-gd
+
+make && make install
+
+3.# 配置PHP与Apache的关联
+
+vim /usr/local/apache/conf/httpd.conf
+
+# 加入在加载了PHP模块之后
+
+<FilesMatch "\.php$">
+	
+SetHandler application/x-httpd-php
+
+</FilesMatch>
+
+
+# 保存，退出，重启
+
+/usr/local/apache/bin/apachectl -k restart
+
+启动apache要关闭防火墙
+service iptables stop
+
+4.# 添加PHP配置文件
+cp /php5.6/php.ini-development /usr/local/php/lib/php.ini
+
+vim /usr/local/php/lib/php.ini
+修改：date.timezone = PRC
+
+# 重启apache
+/usr/local/apache/bin/apachectl -k restart
+
+启动apache要关闭防火墙
+service iptables stop
+
+运行要写绝对路径，因为它默认的环境配置就是绝对路径。
+
+5.配置虚拟主机
+
+在主配置文件中：
+/usr/local/apache/conf/httpd.conf
+
+开启虚拟主机：
+/usr/local/apache/conf/extra/httpd-vhosts.conf
+
+配置域名：
+<VirtualHost *:80>
+     DocumentRoot "/usr/local/apache/htdocs"
+     ServerName www.mylamp.com
+</VirtualHost>
+
+
+三、mysql安装
+安装MySQL
+1.# 安装依赖
+
+yum --disablerepo=\* --enablerepo=c6-media install gcc gcc-c++ cmake ncurses-devel
+
+CMake是一个跨平台的安装（编译）工具。
+ncurses指的是提供字符终端处理库。
+
+2.# 安装mysql
+tar zxvf mysql-5.6.31.tar.gz
+
+cd mysql-5.6.31
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_DATADIR=/usr/local/mysql/data
+或者
+cmake . 
+-DCMAKE_INSTALL_PREFIX=/usr/local/mysql 
+-DMYSQL_DATADIR=/usr/local/mysql/data
+-DDEFAULT_CHARSET=utf8
+
+make && make install
+
+3.# 配置MySQL
+cd /usr/local/mysql
+
+创建一个mysql组:
+groupadd mysql
+
+查看组：
+cat /etc/group
+
+创建一个mysql系统用户它属于mysql组:
+useradd -r -g mysql mysql
+
+查看用户：
+cat /etc/passwd
+
+改变属主：
+chown -R mysql .
+
+改变属组：
+chgrp -R mysql .
+
+或者
+chown -R mysql:mysql .
+
+# 删除可能的旧的配置/etc/my.cnf
+
+(这个步骤一定要删除：)rm -f /etc/my.cnf
+
+#安装mysql系统表
+./scripts/mysql_install_db --user=mysql
+
+或者
+./scripts/mysql_install_db 
+--user=mysql 
+--basedir=/usr/local/mysql 
+--datadir=/usr/local/mysql/data &
+
+chown -R root .
+
+chown -R mysql data
+
+cp support-files/my-default.cnf /etc/my.cnf
+
+4.# 启动mysqld：
+bin/mysqld_safe --user=mysql
+
+后端启动mysqld：
+bin/mysqld_safe --user=mysql &
+
+完整路径是:
+/usr/local/mysql/bin/mysqld_safe --user=mysql &
+
+5.# 客户端登录
+bin/mysql -uroot -p
+
+6.使用数据库
+use mysql
+查看用户表：
+select user,password,host from mysql.user;
+
+# 初始无密码，登陆后可以重置root密码
+
+update mysql.user set password=password('123') where user='root';
+
+7.mysql守护进程管理
+
+将 support-files/mysql.server 拷贝到 /etc/init.d
+cd mysql
+cp support-files/mysql.server /etc/init.d/mysqld
+然后添加就可以了
+chkconfig --add mysqld
+
+8.配置环境变量
+vim /etc/profile
+export PATH="$PATH:/usr/local/php/bin:/usr/local/apache/bin:/usr/local/mysql/bin"
+使环境变量生效
+source /ect/profile
