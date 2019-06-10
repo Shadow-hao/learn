@@ -181,3 +181,5 @@ crontab -l 查看定时任务及进程
 crontab -e创建定时任务
 mount /dev/cdrom [要挂载的目录]挂载光盘
 service apache start 守护进程启动
+使用vi编辑~/.vimrc文件，在该文件中加入一行”set nu”，添加内容不含引号， 命令如下： 
+vi ~/.vimrc 显示行号
