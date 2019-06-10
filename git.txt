@@ -27,4 +27,4 @@ make configure
 make
 make install
 make && make install
-123fgh
+git remote set-url origin git+ssh://git@github.com/ [[用户名]/[项目地址]
